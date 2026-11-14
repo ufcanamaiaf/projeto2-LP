@@ -62,6 +62,7 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
 }
 
 int main(){
+    adicionarProduto(1, "Arroz", 12.90, 3);
 
     return 0;
 }
