@@ -61,8 +61,50 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
     tam++;
 }
 
+void buscarProduto (codigo) {
+	int ultimoProduto = fim->codigo;
+	int primeiroProduto = inicio->codigo;
+	
+	NO *aux = inicio;
+	if (tam % 2 == 0) {
+		for (int i = 0; i < tam/2; i++) {
+		aux = aux->prox;
+		}
+	} else {
+		for (int i = 0; i <= tam/2; i++) {
+		aux = aux->prox;
+		}
+	}
+	
+	int produtomeio = aux->codigo;
+	
+	if (codigo > ultimoProduto || codigo < primeiroProduto) {
+		printf("Codigo invalido!");
+		return;
+	} else if (codigo <= produtomeio) {
+		aux = inicio;
+		for (int i = 0; i <= produtomeio; i++) {
+			if (aux->codigo == codigo) {
+				printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", aux->nome, aux->preco, aux->quantidade);
+				return;
+			} else {
+				aux = aux->prox;
+			}
+		}
+	} else {
+		
+	}
+}
+
 int main(){
     adicionarProduto(1, "Arroz", 12.90, 3);
+    adicionarProduto(2, "Feijao", 8.00, 4);
+    adicionarProduto(5, "Macarrao", 1.90, 2);
+    adicionarProduto(8, "Miojo", 2.90, 3);
+    adicionarProduto(6, "Biscoito", 5.60, 5);
+    
+    buscarProduto(5);
+    buscarProduto(2);
 
     return 0;
 }
