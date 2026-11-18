@@ -10,6 +10,7 @@ typedef struct NO{
 
     // Estrutura de conexao do NO
     struct NO * prox;
+    struct NO * ant;
 }NO;
 
 NO * inicio = NULL;
@@ -36,6 +37,7 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
     novo->preco = preco;
     novo->quantidade = quantidade;
     novo->prox = NULL;
+    novo->ant = NULL;
 
     if( inicio == NULL){
         inicio = novo;
@@ -43,25 +45,34 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
     } else{
         if( novo->codigo < inicio->codigo){ // Se a insercao for no inicio da lista
             novo->prox = inicio;
+            inicio->ant = novo;
             inicio = novo;
         } else if( novo->codigo > fim->codigo ){ // Se a insercao for no fim da lista
             fim->prox = novo;
+            novo->ant = fim;
             fim = novo;
         } else{
-            NO * aux = inicio;
+            NO *aux = inicio;
 
             while (aux->prox != NULL && aux->prox->codigo < novo->codigo) {
                 aux = aux->prox;
             }
 
             novo->prox = aux->prox;
+            novo->ant = aux;
+
+            if (novo->prox != NULL) {
+                novo->prox->ant = novo;
+            }
+
             aux->prox = novo;
         }
     }
-    tam++;
+
+        tam++;
 }
 
-void buscarProduto (codigo) {
+void buscarProduto (int codigo) {
 	int ultimoProduto = fim->codigo;
 	int primeiroProduto = inicio->codigo;
 	
@@ -103,8 +114,11 @@ int main(){
     adicionarProduto(8, "Miojo", 2.90, 3);
     adicionarProduto(6, "Biscoito", 5.60, 5);
     
-    buscarProduto(5);
+    buscarProduto(1);
     buscarProduto(2);
+    buscarProduto(5);
+    buscarProduto(8);
+    buscarProduto(6);
 
     return 0;
 }

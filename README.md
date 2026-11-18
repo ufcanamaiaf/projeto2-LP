@@ -5,11 +5,12 @@ nome -> Nome do produto \
 preco -> Valor, em reais, do produto \
 quantidade -> Quantidade em estoque do produto \
 prox -> Ponteiro que armazena o próximo nó da lista \ 
+ant -> Ponteiro que armazena o nó anterior da lista \
 inicio -> Ponteiro que indica onde a lista se inicia \
 fim -> Ponteiro que indica onde a lista termina \
 tam -> Variável que indica o tamanho atual da lista \
 novo -> Ponteiro para o novo nó alocado durante o cadastro \
-aux -> Ponteiro auxiliar utilizado para percorrer a lista \
+aux -> Ponteiro auxiliar utilizado para percorrer a lista 
 
 # Função adicionarProduto()
 A função adicionarProduto é responsável por cadastrar novos produtos em uma lista, mantendo os produtos organizados em ordem crescente de código. 
