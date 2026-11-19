@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 typedef struct NO{
     // Dados da aplicacao
@@ -33,7 +34,8 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
 
     NO * novo = malloc(sizeof(NO));
     novo->codigo = codigo;
-    novo->nome = nome;
+    novo->nome = malloc(strlen(nome) + 1);
+	strcpy(novo->nome, nome);
     novo->preco = preco;
     novo->quantidade = quantidade;
     novo->prox = NULL;
@@ -75,19 +77,24 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
 void buscarProduto (int codigo) {
 	int ultimoProduto = fim->codigo;
 	int primeiroProduto = inicio->codigo;
+	int produtomeio;
 	
 	NO *aux = inicio;
-	if (tam % 2 == 0) {
-		for (int i = 0; i < tam/2; i++) {
-		aux = aux->prox;
+	if (tam != 1) {
+		if (tam % 2 == 0) {
+			for (int i = 0; i < tam/2; i++) {
+				aux = aux->prox;
+			}
+		} else {
+			for (int i = 0; i <= tam/2; i++) {
+			aux = aux->prox;
+			}
 		}
+		produtomeio = aux->codigo;
 	} else {
-		for (int i = 0; i <= tam/2; i++) {
-		aux = aux->prox;
-		}
+		produtomeio = aux->codigo;
 	}
 	
-	int produtomeio = aux->codigo;
 	
 	if (codigo > ultimoProduto || codigo < primeiroProduto) {
 		printf("Codigo invalido!");
@@ -103,22 +110,82 @@ void buscarProduto (int codigo) {
 			}
 		}
 	} else {
-		
+	
 	}
 }
 
 int main(){
-    adicionarProduto(1, "Arroz", 12.90, 3);
-    adicionarProduto(2, "Feijao", 8.00, 4);
-    adicionarProduto(5, "Macarrao", 1.90, 2);
-    adicionarProduto(8, "Miojo", 2.90, 3);
-    adicionarProduto(6, "Biscoito", 5.60, 5);
+    int opcao = 0, codigo, quantidade;
+    char nome[50];
+    float preco;
     
-    buscarProduto(1);
-    buscarProduto(2);
-    buscarProduto(5);
-    buscarProduto(8);
-    buscarProduto(6);
+    while (opcao != 6) {
+        printf("\n----- SISTEMA DE CONTROLE DE ESTOQUE -----\n");
+        printf("[1] Cadastrar produto\n");
+        printf("[2] Buscar produto\n");
+        printf("[3] Registrar entrada de produto\n");
+        printf("[4] Registrar saida de produto\n");
+        printf("[5] Imprimir relatorio de estoque\n");
+        printf("[6] Sair\n");
+        printf("-----------------------------------------\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:// funcao add
+                printf("Codigo: ");
+                scanf("%d", &codigo);
+
+                printf("Nome: ");
+                scanf(" %[^\n]", nome);
+
+                printf("Preco: ");
+                scanf("%f", &preco);
+
+                printf("Quantidade: ");
+                scanf("%d", &quantidade);
+
+                adicionarProduto(codigo, nome, preco, quantidade);
+                break;
+
+            case 2:// Funcao buscar produto
+                printf("Digite o codigo do produto: ");
+                scanf("%d", &codigo);
+
+                buscarProduto(codigo);
+                break;
+
+            case 3://funcao de entrada
+                printf("Digite o codigo do produto: ");
+                scanf("%d", &codigo);
+
+                printf("Quantidade de entrada: ");
+                scanf("%d", &quantidade);
+
+                break;
+
+            case 4://Funcao de saida
+                printf("Digite o codigo do produto: ");
+                scanf("%d", &codigo);
+
+                printf("Quantidade de saida: ");
+                scanf("%d", &quantidade);
+
+                break;
+
+            case 5:
+                printf("\n");//funcao relatorio
+                break;
+
+            case 6:
+                printf("Encerrando o sistema.\n");
+                break;
+
+            default:
+                printf("Opcao invalida!\n");
+        }
+    }
+
 
     return 0;
 }
