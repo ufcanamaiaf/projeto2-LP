@@ -27,7 +27,7 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
                 printf("Codigo ja cadastrado!\n");
                 return;
             }
-    
+
             aux = aux->prox;
         }
     }
@@ -72,13 +72,27 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
     }
 
         tam++;
+        FILE *inventario;
+        inventario = fopen("inventario.txt","w");
+        if(inventario == NULL){
+            printf("Erro ao abrir o inventário/n");
+            system("pause");
+            exit(1);
+        }
+        NO * aux = inicio;
+        for(int i = 0;i<tam;i++){
+            fprintf(inventario,"Codigo: %d \t Nome: %s \t Preco Unitario: %.2f \t Quantidade Disponivel: %d\n", aux->codigo, aux->nome, aux->preco, aux->quantidade);
+            aux = aux->prox;
+        }
+        fclose(inventario);
 }
+
 
 void buscarProduto (int codigo) {
 	int ultimoProduto = fim->codigo;
 	int primeiroProduto = inicio->codigo;
 	int produtomeio;
-	
+
 	NO *aux = inicio;
 	if (tam != 1) {
 		if (tam % 2 == 0) {
@@ -94,8 +108,8 @@ void buscarProduto (int codigo) {
 	} else {
 		produtomeio = aux->codigo;
 	}
-	
-	
+
+
 	if (codigo > ultimoProduto || codigo < primeiroProduto) {
 		printf("Codigo invalido!");
 		return;
@@ -110,7 +124,7 @@ void buscarProduto (int codigo) {
 			}
 		}
 	} else {
-	
+
 	}
 }
 
@@ -118,7 +132,7 @@ int main(){
     int opcao = 0, codigo, quantidade;
     char nome[50];
     float preco;
-    
+
     while (opcao != 6) {
         printf("\n----- SISTEMA DE CONTROLE DE ESTOQUE -----\n");
         printf("[1] Cadastrar produto\n");
