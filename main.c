@@ -202,6 +202,8 @@ int main(){
                 printf("Quantidade de entrada: ");
                 scanf("%d", &quantidade);
 
+                entradaDeProduto(codigo, quantidade);
+
                 break;
 
             case 4://Funcao de saida
