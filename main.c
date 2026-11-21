@@ -87,6 +87,32 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
         fclose(inventario);
 }
 
+void entradaDeProduto(int codigo, int quantidade) {
+
+    NO *aux = inicio;
+
+    while (aux != NULL) {
+
+        if (aux->codigo == codigo) {
+
+            if (quantidade <= 0) {
+                printf("Quantidade invalida!\n");
+                return;
+            }
+
+            aux->quantidade += quantidade;
+
+            printf("Entrada realizada com sucesso no produto %s\n", aux->nome);
+            printf("Nova quantidade: %d\n", aux->quantidade);
+
+            return;
+        }
+
+        aux = aux->prox;
+    }
+
+    printf("Produto nao encontrado!\n");
+}
 
 void buscarProduto (int codigo) {
 	int ultimoProduto = fim->codigo;
