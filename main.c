@@ -102,7 +102,7 @@ void entradaDeProduto(int codigo, int quantidade) {
 
             aux->quantidade += quantidade;
 
-            printf("Entrada realizada com sucesso no produto %s\n", aux->nome);
+            printf("\nEntrada realizada com sucesso no produto %s\n", aux->nome);
             printf("Nova quantidade: %d\n", aux->quantidade);
 
             return;
@@ -133,12 +133,12 @@ void buscarProduto (int codigo) {
 		if (tam % 2 == 0) {
 			for (int i = 0; i < tam/2; i++) {
 				aux = aux->prox;
-				cont ++;
+				contMeio ++;
 			}
 		} else {
 			for (int i = 0; i <= tam/2; i++) {
 			aux = aux->prox;
-			cont ++;
+			contMeio ++;
 			}
 		}
 		produtomeio = aux;
@@ -229,6 +229,8 @@ int main(){
                 scanf("%d", &quantidade);
 
                 adicionarProduto(codigo, nome, preco, quantidade);
+
+                printf("\nProduto adicionado com sucesso.\n");
                 break;
 
             case 2:// Funcao buscar produto

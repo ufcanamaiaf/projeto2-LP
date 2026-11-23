@@ -1,2 +1,2 @@
-Codigo: 3458 	 Nome: Feijao 	 Preco Unitario: 8.90 	 Quantidade Disponivel: 90
-Codigo: 4536 	 Nome: Arroz 	 Preco Unitario: 5.90 	 Quantidade Disponivel: 30
+Codigo: 11 	 Nome: Arroz 	 Preco Unitario: 2.99 	 Quantidade Disponivel: 3
+Codigo: 22 	 Nome: Carne 	 Preco Unitario: 0.33 	 Quantidade Disponivel: 4
