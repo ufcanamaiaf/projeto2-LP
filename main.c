@@ -75,7 +75,7 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
         FILE *inventario;
         inventario = fopen("inventario.txt","w");
         if(inventario == NULL){
-            printf("Erro ao abrir o inventário/n");
+            printf("Erro ao abrir o inventario/n");
             system("pause");
             exit(1);
         }
@@ -117,8 +117,16 @@ void entradaDeProduto(int codigo, int quantidade) {
 void buscarProduto (int codigo) {
 	int ultimoProduto = fim->codigo;
 	int primeiroProduto = inicio->codigo;
-	int produtomeio;
+	NO *produtomeio = NULL;
 
+	if ((tam == 1 && inicio->codigo == codigo) || inicio->codigo == codigo) {
+		printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", inicio->nome, inicio->preco, inicio->quantidade);
+		return;
+	} else if (codigo == fim->codigo) {
+		printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", fim->nome, fim->preco, fim->quantidade);
+		return;
+	}
+	
 	NO *aux = inicio;
 	if (tam != 1) {
 		if (tam % 2 == 0) {
@@ -130,27 +138,59 @@ void buscarProduto (int codigo) {
 			aux = aux->prox;
 			}
 		}
-		produtomeio = aux->codigo;
+		produtomeio = aux;
 	} else {
-		produtomeio = aux->codigo;
+		produtomeio = aux;
 	}
 
 
 	if (codigo > ultimoProduto || codigo < primeiroProduto) {
 		printf("Codigo invalido!");
 		return;
-	} else if (codigo <= produtomeio) {
+		
+	} else if (codigo == produtomeio->codigo) {
+		printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", produtomeio->nome, produtomeio->preco, produtomeio->quantidade);
+		
+	} else if (codigo <= produtomeio->codigo) {
 		aux = inicio;
-		for (int i = 0; i <= produtomeio; i++) {
+		
+		for (int i = 0; i <= produtomeio->codigo; i++) {
+			
 			if (aux->codigo == codigo) {
 				printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", aux->nome, aux->preco, aux->quantidade);
 				return;
+				
 			} else {
 				aux = aux->prox;
 			}
 		}
 	} else {
+		aux = fim;
+		
+		for (int i = tam; i >= produtomeio->codigo; i--) {
+			
+			if (aux->codigo == codigo) {
+				printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", aux->nome, aux->preco, aux->quantidade);
+				return;
+				
+			} else {
+				aux = aux->ant;
+			}
+		}
+	}
+}
 
+void gerarRelatorio () {
+	printf("---------------------------- PRODUTOS NO ESTOQUE ----------------------------\n");
+	NO *aux = inicio;
+	
+	while (aux != NULL) {
+		
+		printf("-------------------------------------------------------------------------------------\n");
+		printf("Codigo: %d | Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", aux->codigo, aux->nome, aux->preco, aux->quantidade);
+		printf("-------------------------------------------------------------------------------------\n");
+		
+		aux = aux->prox;
 	}
 }
 
@@ -189,10 +229,18 @@ int main(){
                 break;
 
             case 2:// Funcao buscar produto
-                printf("Digite o codigo do produto: ");
-                scanf("%d", &codigo);
-
-                buscarProduto(codigo);
+            	
+            	if (inicio == NULL) {
+            		
+					printf("\nNao ha produtos em estoque!\n");
+					
+				} else {
+					
+					printf("Digite o codigo do produto: ");
+	                scanf("%d", &codigo);
+	
+	                buscarProduto(codigo);
+				}
                 break;
 
             case 3://funcao de entrada
@@ -217,6 +265,7 @@ int main(){
 
             case 5:
                 printf("\n");//funcao relatorio
+                gerarRelatorio ();
                 break;
 
             case 6:
