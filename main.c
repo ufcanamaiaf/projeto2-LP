@@ -119,7 +119,7 @@ void buscarProduto (int codigo) {
 	int primeiroProduto = inicio->codigo;
 	NO *produtomeio = NULL;
 
-	if ((tam == 1 && inicio->codigo == codigo) || inicio->codigo == codigo) {
+	if (inicio->codigo == codigo) {
 		printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", inicio->nome, inicio->preco, inicio->quantidade);
 		return;
 	} else if (codigo == fim->codigo) {
@@ -128,14 +128,17 @@ void buscarProduto (int codigo) {
 	}
 	
 	NO *aux = inicio;
-	if (tam != 1) {
+	int contMeio = 0;
+	if (tam > 2) {
 		if (tam % 2 == 0) {
 			for (int i = 0; i < tam/2; i++) {
 				aux = aux->prox;
+				cont ++;
 			}
 		} else {
 			for (int i = 0; i <= tam/2; i++) {
 			aux = aux->prox;
+			cont ++;
 			}
 		}
 		produtomeio = aux;
@@ -154,7 +157,7 @@ void buscarProduto (int codigo) {
 	} else if (codigo <= produtomeio->codigo) {
 		aux = inicio;
 		
-		for (int i = 0; i <= produtomeio->codigo; i++) {
+		for (int i = 0; i <= contMeio; i++) {
 			
 			if (aux->codigo == codigo) {
 				printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", aux->nome, aux->preco, aux->quantidade);
@@ -167,7 +170,7 @@ void buscarProduto (int codigo) {
 	} else {
 		aux = fim;
 		
-		for (int i = tam; i >= produtomeio->codigo; i--) {
+		for (int i = tam; i >= contMeio; i--) {
 			
 			if (aux->codigo == codigo) {
 				printf("Nome: %s | Preco Unitario: %.2f | Quantidade Disponivel: %d\n", aux->nome, aux->preco, aux->quantidade);
@@ -263,9 +266,15 @@ int main(){
 
                 break;
 
-            case 5:
-                printf("\n");//funcao relatorio
-                gerarRelatorio ();
+            case 5://funcao relatorio
+            	if (inicio == NULL) {
+            		
+					printf("\nNao ha produtos em estoque!\n");
+					
+				} else {
+                	gerarRelatorio ();
+                
+				}
                 break;
 
             case 6:
