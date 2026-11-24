@@ -197,10 +197,64 @@ void gerarRelatorio () {
 	}
 }
 
+void saidaDeProduto(int codigo, int quantidade){
+    NO *aux = inicio;
+
+    if(quantidade <= 0){
+        printf("Quantidade invalida\n");
+        return;
+    }
+    
+    while(aux != NULL){
+        if(aux->codigo == codigo){
+            if(quantidade > aux->quantidade){
+                printf("Quantidade invalida\n");
+                return;
+            }
+
+            aux->quantidade -= quantidade;
+
+            printf("Saida realizada com sucesso em: %s\n", aux->nome);
+            printf("Nova quantidade: %d\n", aux->quantidade);
+
+            return;
+            
+        }
+
+        aux = aux->prox;
+
+    }
+    printf("O Produto nao foi encontrado\n");
+
+}
+
+void notificacaoReabastecimento(NO * inicio){
+    NO *aux = inicio;
+    int tam_min = 3;
+    
+    if(inicio == NULL){ // lista vazia
+        printf("Nao ha nenhum produto cadastrado.\n");
+        
+   }else{// lista nao vazia
+        while(aux != NULL){
+            if(aux->quantidade == 0){
+            printf("[ALERTA - Em Falta] Código %d - %s| Estoque atual: %d unidades (Mínimo exigido: %d).\n Reabastecimento urgente!\n", aux->codigo, aux->nome, aux->quantidade, tam_min);
+            
+            }else if(aux->quantidade <= tam_min){// Estoque abaixo ou no limite
+                printf("[ALERTA - Estoque Baixo] Código %d - %s | Estoque atual: %d unidades (Mínimo exigido: %d).\n Necessário reabastecer.\n", aux->codigo, aux->nome, aux->quantidade, tam_min);    
+          }
+         aux = aux->prox;
+        }
+   }
+    
+}
+
 int main(){
     int opcao = 0, codigo, quantidade;
     char nome[50];
     float preco;
+
+    notificacaoReabastecimento(inicio);
 
     while (opcao != 6) {
         printf("\n----- SISTEMA DE CONTROLE DE ESTOQUE -----\n");
@@ -265,6 +319,8 @@ int main(){
 
                 printf("Quantidade de saida: ");
                 scanf("%d", &quantidade);
+
+                saidaDeProduto(codigo, quantidade);
 
                 break;
 
