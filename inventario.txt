@@ -1,4 +1,6 @@
-Codigo: 11 	 Nome: Arroz 	 Preco Unitario: 3.99 	 Quantidade Disponivel: 4
-Codigo: 22 	 Nome: Feijao 	 Preco Unitario: 12.00 	 Quantidade Disponivel: 4
-Codigo: 33 	 Nome: Miojo 	 Preco Unitario: 5.99 	 Quantidade Disponivel: 5
-Codigo: 66 	 Nome: Leite 	 Preco Unitario: 4.00 	 Quantidade Disponivel: 9
+
+Codigo: 1 	 Nome: 1 	 Preco Unitario: 1.00 	 Quantidade Disponivel: 21
+
+Codigo: 2 	 Nome: oe 	 Preco Unitario: 1.00 	 Quantidade Disponivel: 12
+
+Codigo: 4 	 Nome: 1 	 Preco Unitario: 1.00 	 Quantidade Disponivel: 0
