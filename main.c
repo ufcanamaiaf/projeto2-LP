@@ -36,11 +36,25 @@ void editarInventario(){
 }
 
 void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
+
+    // Validando o codigo
+    if(codigo <= 0){
+        printf("O codigo deve ser maior que zero!\n");
+        return;
+    }
+
+    // Validando o preco
+    if(preco < 0){
+        printf("O preco nao pode ser negativo!\n");
+        return;
+    }
+
     // Buscando por itens com o mesmo codigo
-    if( inicio != NULL){
+    if(inicio != NULL){
         NO *aux = inicio;
-        while (aux != NULL) {
-            if (aux->codigo == codigo) {
+
+        while(aux != NULL){
+            if(aux->codigo == codigo){
                 printf("Codigo ja cadastrado!\n");
                 return;
             }
@@ -49,38 +63,56 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
         }
     }
 
-    NO * novo = malloc(sizeof(NO));
-    novo->codigo = codigo;
+    // Alocando memoria para o novo no
+    NO *novo = malloc(sizeof(NO));
+
+    if(novo == NULL){
+        printf("Falha ao alocar memoria!\n");
+        return;
+    }
+
     novo->nome = malloc(strlen(nome) + 1);
-	strcpy(novo->nome, nome);
+
+    if(novo->nome == NULL){
+        printf("Falha ao alocar memoria para o nome!\n");
+        free(novo);
+        return;
+    }
+
+    novo->codigo = codigo;
+    strcpy(novo->nome, nome);
     novo->preco = preco;
     novo->quantidade = quantidade;
     novo->prox = NULL;
     novo->ant = NULL;
 
-    if( inicio == NULL){
+    // Inserindo o novo no na lista ordenada
+    if(inicio == NULL){
         inicio = novo;
         fim = novo;
+
     } else{
-        if( novo->codigo < inicio->codigo){ // Se a insercao for no inicio da lista
+        if(novo->codigo < inicio->codigo){
             novo->prox = inicio;
             inicio->ant = novo;
             inicio = novo;
-        } else if( novo->codigo > fim->codigo ){ // Se a insercao for no fim da lista
+
+        } else if(novo->codigo > fim->codigo){
             fim->prox = novo;
             novo->ant = fim;
             fim = novo;
+
         } else{
             NO *aux = inicio;
 
-            while (aux->prox != NULL && aux->prox->codigo < novo->codigo) {
+            while(aux->prox != NULL && aux->prox->codigo < novo->codigo){
                 aux = aux->prox;
             }
 
             novo->prox = aux->prox;
             novo->ant = aux;
 
-            if (novo->prox != NULL) {
+            if(novo->prox != NULL){
                 novo->prox->ant = novo;
             }
 
@@ -88,8 +120,11 @@ void adicionarProduto(int codigo, char * nome, float preco, int quantidade){
         }
     }
 
-        tam++;
-        editarInventario();
+    tam++;
+
+    editarInventario();
+
+    printf("Produto cadastrado com sucesso!\n");
 }
 
 void entradaDeProduto(int codigo, int quantidade) {
@@ -247,16 +282,17 @@ void notificacaoReabastecimento(NO * inicio){
    }else{// lista nao vazia
         while(aux != NULL){
             if(aux->quantidade == 0){
-            printf("[ALERTA - Em Falta] Código %d - %s| Estoque atual: %d unidades (Mínimo exigido: %d).\n Reabastecimento urgente!\n", aux->codigo, aux->nome, aux->quantidade, tam_min);
+            printf("\n[ALERTA - Em Falta]\n Codigo %d - %s | Estoque atual: %d unidades (Minimo exigido: %d).\n Reabastecimento urgente!\n", aux->codigo, aux->nome, aux->quantidade, tam_min);
 
             }else if(aux->quantidade <= tam_min){// Estoque abaixo ou no limite
-                printf("[ALERTA - Estoque Baixo] Código %d - %s | Estoque atual: %d unidades (Mínimo exigido: %d).\n Necessário reabastecer.\n", aux->codigo, aux->nome, aux->quantidade, tam_min);
+                printf("[ALERTA - Estoque Baixo] Codigo %d - %s | Estoque atual: %d unidades (Minimo exigido: %d).\n Necessario reabastecer.\n", aux->codigo, aux->nome, aux->quantidade, tam_min);
           }
          aux = aux->prox;
         }
    }
 
 }
+
 void carregarInventario() {
     //abre o arquivo e lê o inventário
     FILE *inventario = fopen("inventario.txt", "r");
@@ -291,6 +327,7 @@ void carregarInventario() {
 
     fclose(inventario);
 }
+
 int main(){
     int opcao = 0, codigo, quantidade;
     char nome[50];
@@ -326,7 +363,6 @@ int main(){
 
                 adicionarProduto(codigo, nome, preco, quantidade);
 
-                printf("\nProduto adicionado com sucesso.\n");
                 break;
 
             case 2:// Funcao buscar produto

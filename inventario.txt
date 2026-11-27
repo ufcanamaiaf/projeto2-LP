@@ -1,6 +1,10 @@
 
-Codigo: 1 	 Nome: 1 	 Preco Unitario: 1.00 	 Quantidade Disponivel: 21
+Codigo: 1 	 Nome: Produto A 	 Preco Unitario: 1.50 	 Quantidade Disponivel: 10
 
-Codigo: 2 	 Nome: oe 	 Preco Unitario: 1.00 	 Quantidade Disponivel: 12
+Codigo: 2 	 Nome: Produto B 	 Preco Unitario: 15.00 	 Quantidade Disponivel: 0
 
-Codigo: 4 	 Nome: 1 	 Preco Unitario: 1.00 	 Quantidade Disponivel: 0
+Codigo: 3 	 Nome: Produto C 	 Preco Unitario: 12.90 	 Quantidade Disponivel: 10
+
+Codigo: 4 	 Nome: Produto D 	 Preco Unitario: 9.00 	 Quantidade Disponivel: 40
+
+Codigo: 5 	 Nome: Produto E 	 Preco Unitario: 29.99 	 Quantidade Disponivel: 0
