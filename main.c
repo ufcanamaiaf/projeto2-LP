@@ -321,7 +321,65 @@ void carregarInventario() {
             }
 
             // Reconstrução do nó na lista encadeada
-            adicionarProduto(codigo, nome, preco, quantidade);
+            NO *novo = malloc(sizeof(NO));
+
+        if(novo == NULL){
+            printf("Falha ao alocar memoria!\n");
+            return;
+        }
+
+        novo->nome = malloc(strlen(nome) + 1);
+
+        if(novo->nome == NULL){
+            printf("Falha ao alocar memoria para o nome!\n");
+            free(novo);
+            return;
+        }
+
+        novo->codigo = codigo;
+        strcpy(novo->nome, nome);
+        novo->preco = preco;
+        novo->quantidade = quantidade;
+        novo->prox = NULL;
+        novo->ant = NULL;
+
+        // Inserindo o novo no na lista ordenada
+        if(inicio == NULL){
+            inicio = novo;
+            fim = novo;
+
+        } else{
+            if(novo->codigo < inicio->codigo){
+                novo->prox = inicio;
+                inicio->ant = novo;
+                inicio = novo;
+
+        } else if(novo->codigo > fim->codigo){
+            fim->prox = novo;
+            novo->ant = fim;
+            fim = novo;
+
+        } else{
+            NO *aux = inicio;
+
+            while(aux->prox != NULL && aux->prox->codigo < novo->codigo){
+                aux = aux->prox;
+            }
+
+            novo->prox = aux->prox;
+            novo->ant = aux;
+
+            if(novo->prox != NULL){
+                novo->prox->ant = novo;
+            }
+
+            aux->prox = novo;
+            }
+        }
+
+        tam++;
+
+        editarInventario();
         }
     }
 
